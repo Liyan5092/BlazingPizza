@@ -243,6 +243,85 @@ public class PlaceOrderTests
         });
     }
 
+    [Test]
+    public async Task LoadTest_Logged_In_User_Adds_55_Pizzas_And_Places_Order()
+    {
+        const int pizzasToAdd = 55;
+        const string pizzaName = "Buffalo chicken";
+
+        // Precondition: user is logged in before starting the Place Order flow
+        await EnsureLoggedInAsync();
+
+        // Home
+        await _page.GotoAsync(BaseUrl);
+        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+        for (int i = 0; i < pizzasToAdd; i++)
+        {
+            TestContext.WriteLine($"Adding pizza #{i + 1}...");
+
+            // Select the pizza card
+            var pizzaCard = _page.GetByText(pizzaName, new() { Exact = false });
+            await pizzaCard.First.WaitForAsync(new() { State = WaitForSelectorState.Visible });
+            await pizzaCard.First.ClickAsync();
+
+            // Click "Order >" (adds one pizza to the order/cart on the configure page)
+            var addToOrderButton = _page.GetByRole(AriaRole.Button, new() { Name = "Order >" });
+            await addToOrderButton.First.WaitForAsync(new() { State = WaitForSelectorState.Visible });
+            await addToOrderButton.First.ClickAsync();
+            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        }
+
+        // Some builds use a link with the same label; click it only if present
+        var orderLink = _page.GetByRole(AriaRole.Link, new() { Name = "Order >" });
+        if (await orderLink.CountAsync() > 0)
+            await orderLink.First.ClickAsync();
+
+        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+        // Checkout form — prefer labels, then placeholders; avoid CSS nth-child
+        ILocator NameField() =>
+            _page.GetByLabel("Name", new() { Exact = false }).Or(_page.GetByPlaceholder("Name"));
+        ILocator AddressLine1Field() =>
+            _page.GetByLabel("Line 1", new() { Exact = false }).Or(_page.GetByPlaceholder("Line1"));
+        ILocator CityField() =>
+            _page.GetByLabel("City", new() { Exact = false }).Or(_page.GetByPlaceholder("City"));
+        ILocator RegionField() =>
+            _page.GetByLabel("Region", new() { Exact = false }).Or(_page.GetByPlaceholder("Region"));
+        ILocator PostalField() =>
+            _page.GetByLabel("Postal Code", new() { Exact = false }).Or(_page.GetByPlaceholder("Postal Code"));
+
+        await NameField().FillAsync("Layan");
+        await AddressLine1Field().FillAsync("123 Moon St");
+        await CityField().FillAsync("Moon");
+        await RegionField().FillAsync("Planet");
+        await PostalField().FillAsync("12345");
+
+        // Place order
+        await _page.GetByRole(AriaRole.Button, new() { Name = "Place order" }).ClickAsync();
+        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+        // Order status assertions (tolerant to casing/spacing)
+        await Assertions.Expect(_page.GetByText("Status: Preparing", new() { Exact = false }))
+                        .ToBeVisibleAsync();
+
+        // Verify that we really stressed the order with many pizzas
+        var summaryItems = _page.GetByText(pizzaName, new() { Exact = false });
+        var count = await summaryItems.CountAsync();
+
+        TestContext.WriteLine($"Pizzas in order summary: {count}");
+        Assert.That(count, Is.GreaterThanOrEqualTo(50),
+            $"Expected at least 50 pizzas in the order, but found {count}.");
+
+        // Final screenshot for your report
+        Directory.CreateDirectory("TestResults/screens");
+        await _page.ScreenshotAsync(new()
+        {
+            Path = $"TestResults/screens/{TestContext.CurrentContext.Test.Name}.png",
+            FullPage = true
+        });
+    }
+
     // Helper
     private async Task EnsureLoggedInAsync()
     {
