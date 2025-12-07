@@ -46,7 +46,7 @@ jobs:
         working-directory: ${{ env.TEST_SOLUTION_FILE }}
 
       - name: Run tests
-        run: dotnet test ${{ env.TEST_SOLUTION_FILE }} --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
+        run: xvfb-run -a dotnet test ${{ env.TEST_SOLUTION_FILE }} --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
 
       - name: Upload test results
         if: always()
