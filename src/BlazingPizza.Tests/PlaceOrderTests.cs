@@ -11,7 +11,7 @@ public class PlaceOrderTests
     private IBrowserContext _context;
     private IPage _page;
 
-    private const string BaseUrl = "https://localhost:7107";
+    private const string BaseUrl = "http://localhost:7107";
 
     [SetUp]
     public async Task Setup()
