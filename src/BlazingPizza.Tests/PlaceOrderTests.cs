@@ -84,7 +84,7 @@ public class PlaceOrderTests
             await pwd.FillAsync("John@1234");
 
             await _page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
-            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+            //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
         }
 
         // (Back on menu) choose pizza again if needed
@@ -181,7 +181,7 @@ public class PlaceOrderTests
             await pwd.FillAsync("John@1234");
 
             await _page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
-            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+            //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
         }
 
         // (Back on menu) choose pizza again if needed
@@ -269,7 +269,7 @@ public class PlaceOrderTests
             var addToOrderButton = _page.GetByRole(AriaRole.Button, new() { Name = "Order >" });
             await addToOrderButton.First.WaitForAsync(new() { State = WaitForSelectorState.Visible });
             await addToOrderButton.First.ClickAsync();
-            await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+            //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
         }
 
         // Some builds use a link with the same label; click it only if present
@@ -277,7 +277,7 @@ public class PlaceOrderTests
         if (await orderLink.CountAsync() > 0)
             await orderLink.First.ClickAsync();
 
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
         // Checkout form — prefer labels, then placeholders; avoid CSS nth-child
         ILocator NameField() =>
@@ -299,7 +299,7 @@ public class PlaceOrderTests
 
         // Place order
         await _page.GetByRole(AriaRole.Button, new() { Name = "Place order" }).ClickAsync();
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
         // Order status assertions (tolerant to casing/spacing)
         await Assertions.Expect(_page.GetByText("Status: Preparing", new() { Exact = false }))
@@ -327,7 +327,7 @@ public class PlaceOrderTests
     {
         // Go to home
         await _page.GotoAsync(BaseUrl);
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
         // If we *don't* see "Log in", assume the user is already authenticated
         var loginLink = _page.GetByRole(AriaRole.Link, new() { Name = "Log in" });
@@ -352,7 +352,7 @@ public class PlaceOrderTests
         await pwd.FillAsync("John@1234");
 
         await _page.GetByRole(AriaRole.Button, new() { Name = "Log in" }).ClickAsync();
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
         TestContext.WriteLine("User successfully logged in.");
     }
