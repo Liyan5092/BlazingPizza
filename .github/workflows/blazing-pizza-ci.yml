@@ -45,8 +45,25 @@ jobs:
         run: playwright install --with-deps
         working-directory: ${{ env.TEST_SOLUTION_FILE }}
 
+      - name: Run Blazing Pizza app
+        working-directory: src/BlazingPizza
+        run: dotnet run --urls "http://localhost:7107"
+
+      - name: Wait for app to start
+        run: |
+          for i in {1..30}; do
+            if curl --silent http://localhost:7107/ > /dev/null 2>&1; then
+              echo "Blazing Pizza is up!"
+              exit 0
+            fi
+            echo "Waiting for Blazing Pizza..."
+            sleep 3
+          done
+          echo "Blazing Pizza failed to start in time."
+          exit 1
+
       - name: Run tests
-        run: xvfb-run -a dotnet test ${{ env.TEST_SOLUTION_FILE }} --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --urls "http://localhost:7107" & sleep 10
+        run: xvfb-run -a dotnet test ${{ env.TEST_SOLUTION_FILE }} --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
 
       - name: Upload test results
         if: always()
