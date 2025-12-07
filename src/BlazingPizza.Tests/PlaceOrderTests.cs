@@ -57,7 +57,7 @@ public class PlaceOrderTests
     {
         // Home
         await _page.GotoAsync(BaseUrl);
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
         // Choose pizza
         await _page.GetByText("Buffalo chicken", new() { Exact = false }).ClickAsync();
@@ -154,7 +154,7 @@ public class PlaceOrderTests
 
         // Home
         await _page.GotoAsync(BaseUrl);
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
         // Choose pizza
         await _page.GetByText("Buffalo chicken", new() { Exact = false }).ClickAsync();
@@ -254,7 +254,7 @@ public class PlaceOrderTests
 
         // Home
         await _page.GotoAsync(BaseUrl);
-        await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+        //await _page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
         for (int i = 0; i < pizzasToAdd; i++)
         {
