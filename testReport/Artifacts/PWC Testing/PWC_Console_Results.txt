@@ -1,0 +1,42 @@
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+[GetBasePrice_Throws_WhenSpecialIsNull] Size=12, Special=null → Threw: NullReferenceException Message='Special was null when calculating Base Price.'
+
+[GetFormattedTotalPrice - PWC_Low_Size9_Top0] Formatted Expected=7.49 Actual=7.49 (Special=Margherita, Size=9, Tops=0)
+
+[GetFormattedTotalPrice - PWC_Low_Size12_Top2] Formatted Expected=10.99 Actual=10.99 (Special=Margherita, Size=12, Tops=2)
+
+[GetFormattedTotalPrice - PWC_Low_Size17_Top6] Formatted Expected=17.15 Actual=17.15 (Special=Margherita, Size=17, Tops=6)
+
+[GetFormattedTotalPrice - PWC_Medium_Size9_Top2] Formatted Expected=8.88 Actual=8.88 (Special=Classic pepperoni, Size=9, Tops=2)
+
+[GetFormattedTotalPrice - PWC_Medium_Size12_Top6] Formatted Expected=13.50 Actual=13.50 (Special=Classic pepperoni, Size=12, Tops=6)
+
+[GetFormattedTotalPrice - PWC_Medium_Size17_Top0] Formatted Expected=14.88 Actual=14.88 (Special=Classic pepperoni, Size=17, Tops=0)
+
+[GetFormattedTotalPrice - PWC_High_Size9_Top6] Formatted Expected=12.56 Actual=12.56 (Special=Buffalo chicken, Size=9, Tops=6)
+
+[GetFormattedTotalPrice - PWC_High_Size12_Top0] Formatted Expected=12.75 Actual=12.75 (Special=Buffalo chicken, Size=12, Tops=0)
+
+[GetFormattedTotalPrice - PWC_High_Size17_Top2] Formatted Expected=19.06 Actual=19.06 (Special=Buffalo chicken, Size=17, Tops=2)
+
+[GetTotalPrice - PWC_Low_Size9_Top0] Special=Margherita Base=9.99 Size=9 Toppings=0 Expected=7.49 Actual=7.49
+
+[GetTotalPrice - PWC_Low_Size12_Top2] Special=Margherita Base=9.99 Size=12 Toppings=2 Expected=10.99 Actual=10.99
+
+[GetTotalPrice - PWC_Low_Size17_Top6] Special=Margherita Base=9.99 Size=17 Toppings=6 Expected=17.15 Actual=17.15
+
+[GetTotalPrice - PWC_Medium_Size9_Top2] Special=Classic pepperoni Base=10.50 Size=9 Toppings=2 Expected=8.88 Actual=8.88
+
+[GetTotalPrice - PWC_Medium_Size12_Top6] Special=Classic pepperoni Base=10.50 Size=12 Toppings=6 Expected=13.50 Actual=13.50
+
+[GetTotalPrice - PWC_Medium_Size17_Top0] Special=Classic pepperoni Base=10.50 Size=17 Toppings=0 Expected=14.88 Actual=14.88
+
+[GetTotalPrice - PWC_High_Size9_Top6] Special=Buffalo chicken Base=12.75 Size=9 Toppings=6 Expected=12.56 Actual=12.56
+
+[GetTotalPrice - PWC_High_Size12_Top0] Special=Buffalo chicken Base=12.75 Size=12 Toppings=0 Expected=12.75 Actual=12.75
+
+[GetTotalPrice - PWC_High_Size17_Top2] Special=Buffalo chicken Base=12.75 Size=17 Toppings=2 Expected=19.06 Actual=19.06
+
+[GetTotalPrice_Throws_WhenAnyToppingIsNull] Special=Margherita Base=9.99 Size=12 Tops=2 → Threw: NullReferenceException Message='Toppings contained null when calculating the Total Price.'
