@@ -1,0 +1,12 @@
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Empty → Expected=0.00, Actual=0.00
+
+Multiple+Uniform → Each=11.00, Count=4, Total=44.00
+
+Multiple+Varied → Totals: [6.00, 18.00, 11.00, 10.00] Sum=45.00
+
+Propagation (null Special) → Threw NullReferenceException: 'Special was null when calculating Base Price.'
+
+Single → PizzaTotal=11.00, OrderTotal=11.00
