@@ -47,12 +47,12 @@ jobs:
 
       - name: Run Blazing Pizza app
         working-directory: src/BlazingPizza
-        run: dotnet run --urls "https://localhost:7107" &
+        run: dotnet run --urls "http://localhost:7107" &
 
       - name: Wait for app to start
         run: |
           for i in {1..30}; do
-            if curl --silent https://localhost:7107/ > /dev/null 2>&1; then
+            if curl --silent http://localhost:7107/ > /dev/null 2>&1; then
               echo "Blazing Pizza is up!"
               exit 0
             fi
