@@ -42,7 +42,7 @@ jobs:
         run: dotnet tool install --global Microsoft.Playwright.CLI
 
       - name: Install Playwright browsers
-        run: playwright install --with-deps
+        run: playwright install --with-deps -p ${{ env.TEST_SOLUTION_FILE }}
 
       - name: Run tests
         run: dotnet test ${{ env.TEST_SOLUTION_FILE }} --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
