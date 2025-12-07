@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Blazing Pizza app
         working-directory: src/BlazingPizza
-        run: dotnet run --urls "http://localhost:7107"
+        run: dotnet run --urls "http://localhost:7107" &
 
       - name: Wait for app to start
         run: |
